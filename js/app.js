@@ -1,5 +1,6 @@
-(function () {
-  console.log('Starting Multimath with an IIFE');
+define(['./player', './game'], function(player, game){
+
+  console.log('Loading with RequireJS');
 
   // add click handler to the start game button
   document.getElementById('startGame').addEventListener('click', function(){
@@ -16,6 +17,5 @@
   document.getElementById('problemCount').value = game.getProblemCount();
 
   // Implementing the Revealing Module pattern with a singleton
-  
 
-})();
+});

@@ -1,4 +1,4 @@
-var player = function(){
+define([], function() {
 
   // Private members
 
@@ -22,4 +22,4 @@ var player = function(){
     getName: getName,
   }
 
-}();
+});

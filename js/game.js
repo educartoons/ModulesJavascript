@@ -1,4 +1,4 @@
-var game = function(){
+define(['./player', './scoreboard'], function(player, scoreboard){
 
   // Private members
 
@@ -52,7 +52,7 @@ var game = function(){
     };
 
     // add the result and update the scoreboard
-    var scoreboard = new Scoreboard();
+    //var scoreboard = new Scoreboard();
 
     scoreboard.addResult(result);
     scoreboard.updateScoreboard();
@@ -78,4 +78,4 @@ var game = function(){
     getProblemCount: getProblemCount
   };
 
-}();
+});
