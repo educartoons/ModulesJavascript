@@ -52,6 +52,8 @@ var game = function(){
     };
 
     // add the result and update the scoreboard
+    var scoreboard = new Scoreboard();
+
     scoreboard.addResult(result);
     scoreboard.updateScoreboard();
 

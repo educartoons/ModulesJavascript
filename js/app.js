@@ -1,4 +1,4 @@
-(function (name) {
+(function () {
   console.log('Starting Multimath with an IIFE');
 
   // add click handler to the start game button
@@ -16,7 +16,6 @@
   document.getElementById('problemCount').value = game.getProblemCount();
 
   // Implementing the Revealing Module pattern with a singleton
-
   
 
 })();
