@@ -1,6 +1,5 @@
-
-import { getName as getPlayerName, logPlayer } from './player.js';
-import * as scoreboard from './scoreboard.js';
+var player = require('./player.js');
+var scoreboard = require('./scoreboard.js');
 
 // Private members
 
@@ -8,7 +7,7 @@ var factorElement = document.getElementById('factor');
 var problemsPerGame = 3;
 
 function printGame() {
-  logPlayer();
+  player.logPlayer();
 
   // determine the number of problems to show
   setProblemCount(document.getElementById('problemCount').value);
@@ -47,7 +46,7 @@ function calculateScore() {
 
   // create a new result object to pass to the scoreboard
   var result = {
-      name: getPlayerName(),
+      name: player.getName(),
       score: score,
       problems: problemsInGame,
       factor: factorElement.value
@@ -73,4 +72,7 @@ function getProblemCount() {
 
 // public members
 
-export { printGame, calculateScore, setProblemCount, getProblemCount };
+exports.printGame = printGame;
+exports.calculateScore = calculateScore;
+exports.setProblemCount - setProblemCount;
+exports.getProblemCount = getProblemCount;

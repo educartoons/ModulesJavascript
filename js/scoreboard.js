@@ -26,4 +26,7 @@ function updateScoreboard(){
 
 }
 
-export { addResult, updateScoreboard };
+module.exports = {
+      addResult: addResult,
+      updateScoreboard: updateScoreboard
+};

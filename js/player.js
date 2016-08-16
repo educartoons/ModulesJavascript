@@ -1,14 +1,18 @@
 // Private members
 var playerName = '';
 
-export function logPlayer(){
+function logPlayer(){
   console.log('The current player is ' + playerName + '.');
 }
 
-export default function setName(newName){
+function setName(newName){
   playerName = newName;
 }
 
-export function getName(){
+function getName(){
   return playerName;
 }
+
+exports.logPlayer = logPlayer;
+exports.setName = setName;
+exports.getName = getName;

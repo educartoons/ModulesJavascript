@@ -1,20 +1,20 @@
-import assignPlayerName from './player.js';
-import { printGame, calculateScore, getProblemCount } from './game.js';
+var player = require('./player.js');
+var game = require('./game.js');
 
-console.log('Loading with SystemJS');
+console.log('Bundled with Browserify');
 
 // add click handler to the start game button
 document.getElementById('startGame').addEventListener('click', function(){
-    assignPlayerName(document.getElementById('playername').value);
-    printGame();
+    player.setName(document.getElementById('playername').value);
+    game.printGame();
 });
 
 // add click handler to the calculate score button
 document.getElementById('calculate').addEventListener('click', function(){
-    calculateScore();
+    game.calculateScore();
 });
 
 // set the default number of problems
-document.getElementById('problemCount').value = getProblemCount();
+document.getElementById('problemCount').value = game.getProblemCount();
 
 // Implementing the Revealing Module pattern with a singleton
