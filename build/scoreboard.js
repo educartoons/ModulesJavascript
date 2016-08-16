@@ -1,29 +1,34 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 console.log('Creating a Scoreboard ...');
 
 // private members
 
 var results = []; // array to store result of every game
 
-function addResult(newResult){
+function addResult(newResult) {
   results.push(newResult);
 }
 
-function updateScoreboard(){
+function updateScoreboard() {
 
   var output = '<h2>Scoreboard</h2>';
 
   // loop over all results and create the html for the Scoreboard
-  for (var index=0; index < results.length; index++){
+  for (var index = 0; index < results.length; index++) {
     var result = results[index];
     output += '<h4>';
-    output += result.name + ': ' + result.score + '/' + result.problems + ' for factor ' + document.getElementById('factor').value ;
+    output += result.name + ': ' + result.score + '/' + result.problems + ' for factor ' + document.getElementById('factor').value;
     output += '</h4>';
   }
 
   // add the updated scoreboard to the page
   var scoresElement = document.getElementById('scores');
   scoresElement.innerHTML = output;
-
 }
 
-export { addResult, updateScoreboard };
+exports.addResult = addResult;
+exports.updateScoreboard = updateScoreboard;
