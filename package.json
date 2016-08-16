@@ -12,5 +12,8 @@
     "start": "http-server"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "systemjs": "^0.19.36"
+  }
 }
