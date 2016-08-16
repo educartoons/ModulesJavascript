@@ -1,80 +1,76 @@
-define(['./player', './scoreboard'], function(player, scoreboard){
-  // Private members
 
-  var factorElement = document.getElementById('factor');
-  var problemsPerGame = 3;
+import { getName as getPlayerName, logPlayer } from './player.js';
+import * as scoreboard from './scoreboard.js';
 
-  function printGame() {
-    player.logPlayer();
+// Private members
 
-    // determine the number of problems to show
-    setProblemCount(document.getElementById('problemCount').value);
+var factorElement = document.getElementById('factor');
+var problemsPerGame = 3;
 
-    // create the html for the current game
-    var gameForm = '';
+function printGame() {
+  logPlayer();
 
-    for(var i = 1; i <= problemsPerGame; i++ ){
-      gameForm += '<div class="row">';
-      gameForm += '<div class="col-md-2"><label for="answer'+ i +' class="col-sm-2 control-label">';
-      gameForm += factorElement.value + ' x ' + i + ' = </label></div>';
-      gameForm += '<div class="col-md-2"><input type="text" class="form-control" id="answer'+ i +'" /></div>';
-      gameForm += '</div>';
+  // determine the number of problems to show
+  setProblemCount(document.getElementById('problemCount').value);
+
+  // create the html for the current game
+  var gameForm = '';
+
+  for(var i = 1; i <= problemsPerGame; i++ ){
+    gameForm += '<div class="row">';
+    gameForm += '<div class="col-md-2"><label for="answer'+ i +' class="col-sm-2 control-label">';
+    gameForm += factorElement.value + ' x ' + i + ' = </label></div>';
+    gameForm += '<div class="col-md-2"><input type="text" class="form-control" id="answer'+ i +'" /></div>';
+    gameForm += '</div>';
+  }
+
+  // add the new game to the page
+  var gameElement = document.getElementById('game');
+  gameElement.innerHTML = gameForm;
+
+  // enable the calculate score button
+  document.getElementById('calculate').removeAttribute('disabled');
+}
+
+function calculateScore() {
+
+  var problemsInGame = getProblemCount();
+  var score = 0;
+
+  //loop through the text boxes and calculate the number that are correct
+  for(var i = 1; i <= problemsInGame; i++) {
+    var answer = document.getElementById('answer' + i).value;
+    if(i * factorElement.value == answer) {
+      score++;
     }
-
-    // add the new game to the page
-    var gameElement = document.getElementById('game');
-    gameElement.innerHTML = gameForm;
-
-    // enable the calculate score button
-    document.getElementById('calculate').removeAttribute('disabled');
   }
 
-  function calculateScore() {
-
-    var problemsInGame = getProblemCount();
-    var score = 0;
-
-    //loop through the text boxes and calculate the number that are correct
-    for(var i = 1; i <= problemsInGame; i++) {
-      var answer = document.getElementById('answer' + i).value;
-      if(i * factorElement.value == answer) {
-        score++;
-      }
-    }
-
-    // create a new result object to pass to the scoreboard
-    var result = {
-        name: player.getName(),
-        score: score,
-        problems: problemsInGame,
-        factor: factorElement.value
-    };
-
-    // add the result and update the scoreboard
-    //var scoreboard = new Scoreboard();
-
-    scoreboard.addResult(result);
-    scoreboard.updateScoreboard();
-
-    // disable the calculate score button
-    document.getElementById('calculate').setAttribute('disabled', 'true');
-  }
-
-  function setProblemCount(newProblemCount) {
-    problemsPerGame = newProblemCount;
-  }
-
-  function getProblemCount() {
-    return problemsPerGame;
-  }
-
-  // public members
-
-  return {
-    printGame: printGame,
-    calculateScore: calculateScore,
-    setProblemCount: setProblemCount,
-    getProblemCount: getProblemCount
+  // create a new result object to pass to the scoreboard
+  var result = {
+      name: getPlayerName(),
+      score: score,
+      problems: problemsInGame,
+      factor: factorElement.value
   };
 
-});
+  // add the result and update the scoreboard
+  //var scoreboard = new Scoreboard();
+
+  scoreboard.addResult(result);
+  scoreboard.updateScoreboard();
+
+  // disable the calculate score button
+  document.getElementById('calculate').setAttribute('disabled', 'true');
+}
+
+function setProblemCount(newProblemCount) {
+  problemsPerGame = newProblemCount;
+}
+
+function getProblemCount() {
+  return problemsPerGame;
+}
+
+// public members
+
+export { printGame, calculateScore, setProblemCount, getProblemCount };
