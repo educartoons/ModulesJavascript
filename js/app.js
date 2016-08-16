@@ -1,7 +1,7 @@
 var player = require('./player.js');
 var game = require('./game.js');
 
-console.log('Bundled with Browserify');
+console.log('Bundled with Browserify yay!');
 
 // add click handler to the start game button
 document.getElementById('startGame').addEventListener('click', function(){
