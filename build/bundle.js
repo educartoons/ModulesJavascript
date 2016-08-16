@@ -1,157 +1,228 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var player = require('./player.js');
-var game = require('./game.js');
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
 
-console.log('Bundled with Browserify yay!');
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
 
-// add click handler to the start game button
-document.getElementById('startGame').addEventListener('click', function(){
-    player.setName(document.getElementById('playername').value);
-    game.printGame();
-});
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
 
-// add click handler to the calculate score button
-document.getElementById('calculate').addEventListener('click', function(){
-    game.calculateScore();
-});
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
 
-// set the default number of problems
-document.getElementById('problemCount').value = game.getProblemCount();
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 
-// Implementing the Revealing Module pattern with a singleton
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
 
-},{"./game.js":2,"./player.js":3}],2:[function(require,module,exports){
-var player = require('./player.js');
-var scoreboard = require('./scoreboard.js');
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
 
-// Private members
 
-var factorElement = document.getElementById('factor');
-var problemsPerGame = 3;
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
 
-function printGame() {
-  player.logPlayer();
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
 
-  // determine the number of problems to show
-  setProblemCount(document.getElementById('problemCount').value);
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
 
-  // create the html for the current game
-  var gameForm = '';
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
 
-  for(var i = 1; i <= problemsPerGame; i++ ){
-    gameForm += '<div class="row">';
-    gameForm += '<div class="col-md-2"><label for="answer'+ i +' class="col-sm-2 control-label">';
-    gameForm += factorElement.value + ' x ' + i + ' = </label></div>';
-    gameForm += '<div class="col-md-2"><input type="text" class="form-control" id="answer'+ i +'" /></div>';
-    gameForm += '</div>';
-  }
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function(player, game){
 
-  // add the new game to the page
-  var gameElement = document.getElementById('game');
-  gameElement.innerHTML = gameForm;
+	  console.log('Bundled with Webpack');
 
-  // enable the calculate score button
-  document.getElementById('calculate').removeAttribute('disabled');
-}
+	  // add click handler to the start game button
+	  document.getElementById('startGame').addEventListener('click', function(){
+	      player.setName(document.getElementById('playername').value);
+	      game.printGame();
+	  });
 
-function calculateScore() {
+	  // add click handler to the calculate score button
+	  document.getElementById('calculate').addEventListener('click', function(){
+	      game.calculateScore();
+	  });
 
-  var problemsInGame = getProblemCount();
-  var score = 0;
+	  // set the default number of problems
+	  document.getElementById('problemCount').value = game.getProblemCount();
 
-  //loop through the text boxes and calculate the number that are correct
-  for(var i = 1; i <= problemsInGame; i++) {
-    var answer = document.getElementById('answer' + i).value;
-    if(i * factorElement.value == answer) {
-      score++;
-    }
-  }
 
-  // create a new result object to pass to the scoreboard
-  var result = {
-      name: player.getName(),
-      score: score,
-      problems: problemsInGame,
-      factor: factorElement.value
-  };
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-  // add the result and update the scoreboard
-  //var scoreboard = new Scoreboard();
 
-  scoreboard.addResult(result);
-  scoreboard.updateScoreboard();
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
 
-  // disable the calculate score button
-  document.getElementById('calculate').setAttribute('disabled', 'true');
-}
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() {
 
-function setProblemCount(newProblemCount) {
-  problemsPerGame = newProblemCount;
-}
+	  // Private members
+	  var playerName = '';
 
-function getProblemCount() {
-  return problemsPerGame;
-}
+	  function logPlayer(){
+	    console.log('The current player is ' + playerName + '.');
+	  }
 
-// public members
+	  function setName(newName){
+	    playerName = newName;
+	  }
 
-exports.printGame = printGame;
-exports.calculateScore = calculateScore;
-exports.setProblemCount - setProblemCount;
-exports.getProblemCount = getProblemCount;
+	  function getName(){
+	    return playerName;
+	  }
 
-},{"./player.js":3,"./scoreboard.js":4}],3:[function(require,module,exports){
-// Private members
-var playerName = '';
+	  return {
+	    logPlayer: logPlayer,
+	    setName: setName,
+	    getName: getName,
+	  };
 
-function logPlayer(){
-  console.log('The current player is ' + playerName + '.');
-}
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-function setName(newName){
-  playerName = newName;
-}
 
-function getName(){
-  return playerName;
-}
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
 
-exports.logPlayer = logPlayer;
-exports.setName = setName;
-exports.getName = getName;
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = function(player, scoreboard){
+	  // Private members
 
-},{}],4:[function(require,module,exports){
-console.log('Creating a Scoreboard ...');
+	  var factorElement = document.getElementById('factor');
+	  var problemsPerGame = 3;
 
-// private members
+	  function printGame() {
+	    player.logPlayer();
 
-var results = []; // array to store result of every game
+	    // determine the number of problems to show
+	    setProblemCount(document.getElementById('problemCount').value);
 
-function addResult(newResult){
-  results.push(newResult);
-}
+	    // create the html for the current game
+	    var gameForm = '';
 
-function updateScoreboard(){
+	    for(var i = 1; i <= problemsPerGame; i++ ){
+	      gameForm += '<div class="row">';
+	      gameForm += '<div class="col-md-2"><label for="answer'+ i +' class="col-sm-2 control-label">';
+	      gameForm += factorElement.value + ' x ' + i + ' = </label></div>';
+	      gameForm += '<div class="col-md-2"><input type="text" class="form-control" id="answer'+ i +'" /></div>';
+	      gameForm += '</div>';
+	    }
 
-  var output = '<h2>Scoreboard</h2>';
+	    // add the new game to the page
+	    var gameElement = document.getElementById('game');
+	    gameElement.innerHTML = gameForm;
 
-  // loop over all results and create the html for the Scoreboard
-  for (var index=0; index < results.length; index++){
-    var result = results[index];
-    output += '<h4>';
-    output += result.name + ': ' + result.score + '/' + result.problems + ' for factor ' + document.getElementById('factor').value ;
-    output += '</h4>';
-  }
+	    // enable the calculate score button
+	    document.getElementById('calculate').removeAttribute('disabled');
+	  }
 
-  // add the updated scoreboard to the page
-  var scoresElement = document.getElementById('scores');
-  scoresElement.innerHTML = output;
+	  function calculateScore() {
 
-}
+	    var problemsInGame = getProblemCount();
+	    var score = 0;
 
-module.exports = {
-      addResult: addResult,
-      updateScoreboard: updateScoreboard
-};
+	    //loop through the text boxes and calculate the number that are correct
+	    for(var i = 1; i <= problemsInGame; i++) {
+	      var answer = document.getElementById('answer' + i).value;
+	      if(i * factorElement.value == answer) {
+	        score++;
+	      }
+	    }
 
-},{}]},{},[1]);
+	    // create a new result object to pass to the scoreboard
+	    var result = {
+	        name: player.getName(),
+	        score: score,
+	        problems: problemsInGame,
+	        factor: factorElement.value
+	    };
+
+	    // add the result and update the scoreboard
+	    //var scoreboard = new Scoreboard();
+
+	    scoreboard.addResult(result);
+	    scoreboard.updateScoreboard();
+
+	    // disable the calculate score button
+	    document.getElementById('calculate').setAttribute('disabled', 'true');
+	  }
+
+	  function setProblemCount(newProblemCount) {
+	    problemsPerGame = newProblemCount;
+	  }
+
+	  function getProblemCount() {
+	    return problemsPerGame;
+	  }
+
+	  // public members
+
+	  return {
+	    printGame: printGame,
+	    calculateScore: calculateScore,
+	    setProblemCount: setProblemCount,
+	    getProblemCount: getProblemCount
+	  };
+
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function(){
+
+	  console.log('Creating a Scoreboard ...');
+
+	  // private members
+
+	  var results = []; // array to store result of every game
+
+	  function addResult(newResult){
+	    results.push(newResult);
+	  }
+
+	  function updateScoreboard(){
+
+	    var output = '<h2>Scoreboard</h2>';
+
+	    // loop over all results and create the html for the Scoreboard
+	    for (var index=0; index < results.length; index++){
+	      var result = results[index];
+	      output += '<h4>';
+	      output += result.name + ': ' + result.score + '/' + result.problems + ' for factor ' + document.getElementById('factor').value ;
+	      output += '</h4>';
+	    }
+
+	    // add the updated scoreboard to the page
+	    var scoresElement = document.getElementById('scores');
+	    scoresElement.innerHTML = output;
+
+	  }
+
+	  return {
+	    addResult: addResult,
+	    updateScoreboard: updateScoreboard
+	  };
+
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+
+/***/ }
+/******/ ]);

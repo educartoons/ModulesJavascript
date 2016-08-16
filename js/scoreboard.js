@@ -1,32 +1,36 @@
-console.log('Creating a Scoreboard ...');
+define([], function(){
 
-// private members
+  console.log('Creating a Scoreboard ...');
 
-var results = []; // array to store result of every game
+  // private members
 
-function addResult(newResult){
-  results.push(newResult);
-}
+  var results = []; // array to store result of every game
 
-function updateScoreboard(){
-
-  var output = '<h2>Scoreboard</h2>';
-
-  // loop over all results and create the html for the Scoreboard
-  for (var index=0; index < results.length; index++){
-    var result = results[index];
-    output += '<h4>';
-    output += result.name + ': ' + result.score + '/' + result.problems + ' for factor ' + document.getElementById('factor').value ;
-    output += '</h4>';
+  function addResult(newResult){
+    results.push(newResult);
   }
 
-  // add the updated scoreboard to the page
-  var scoresElement = document.getElementById('scores');
-  scoresElement.innerHTML = output;
+  function updateScoreboard(){
 
-}
+    var output = '<h2>Scoreboard</h2>';
 
-module.exports = {
-      addResult: addResult,
-      updateScoreboard: updateScoreboard
-};
+    // loop over all results and create the html for the Scoreboard
+    for (var index=0; index < results.length; index++){
+      var result = results[index];
+      output += '<h4>';
+      output += result.name + ': ' + result.score + '/' + result.problems + ' for factor ' + document.getElementById('factor').value ;
+      output += '</h4>';
+    }
+
+    // add the updated scoreboard to the page
+    var scoresElement = document.getElementById('scores');
+    scoresElement.innerHTML = output;
+
+  }
+
+  return {
+    addResult: addResult,
+    updateScoreboard: updateScoreboard
+  };
+
+});

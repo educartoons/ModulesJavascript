@@ -1,20 +1,20 @@
-var player = require('./player.js');
-var game = require('./game.js');
+define(['./player', './game'], function(player, game){
 
-console.log('Bundled with Browserify yay!');
+  console.log('Bundled with Webpack');
 
-// add click handler to the start game button
-document.getElementById('startGame').addEventListener('click', function(){
-    player.setName(document.getElementById('playername').value);
-    game.printGame();
+  // add click handler to the start game button
+  document.getElementById('startGame').addEventListener('click', function(){
+      player.setName(document.getElementById('playername').value);
+      game.printGame();
+  });
+
+  // add click handler to the calculate score button
+  document.getElementById('calculate').addEventListener('click', function(){
+      game.calculateScore();
+  });
+
+  // set the default number of problems
+  document.getElementById('problemCount').value = game.getProblemCount();
+
+
 });
-
-// add click handler to the calculate score button
-document.getElementById('calculate').addEventListener('click', function(){
-    game.calculateScore();
-});
-
-// set the default number of problems
-document.getElementById('problemCount').value = game.getProblemCount();
-
-// Implementing the Revealing Module pattern with a singleton
